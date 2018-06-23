@@ -328,4 +328,4 @@ async def source(ctx, *, text: str):
     await ctx.send(f"{nl}py\n{source_thing}{nl}")
 
 
-client.run('NDUwNTgzNjM5NjM4NTQwMjg4.DgfOQg.tUBR0w4IKykB4CaIai3AQVPXt7E')
+client.run('token')
