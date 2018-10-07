@@ -1,41 +1,42 @@
 import discord
-from discord import Embed, Member
 from discord.ext.commands import Bot
 from discord.ext import commands
 import random
 import random as dice
-import time
+import asyncio
 import inspect
 import pip
 from typing import Type
 
-client = commands.Bot("h%")
+client = commands.Bot("s%")
 client.remove_command("help")
-messages = ["All hail Miso", "Harold is god", "Fookie"]
+
 
 @client.event
 async def on_ready():
     print('Guys We have logged in as {0.user}'.format(client))
-    await client.change_presence(activity=discord.Game(name='hiding the pain|h%help'))
+    await client.change_presence(activity=discord.Game(name='s%help|playing with other titans'))
 
 
 @client.event
 async def on_member_join(member):
-    await member.guild.get_channel('456444044915245058').send
-    (random.choice([f"Your mom gay <@{member.id}> <:XD:456984087513530389> .",
+    channel = 456444044915245058 or 498124226541256705
+    await member.guild.get_channel(channel).send(
+    random.choice([f"Your mom gay <@{member.id}> <:XD:456984087513530389> .",
                     f"Your ancestor incestors <@{member.id}> lol.",
                     f"Your mom a flaming homosexual <@{member.id}> <:Thonk:458454352726720513> .",
                     f"Your mom and dad gay together <@{member.id}> tbh",
                     f"Yer nanny a homo <@{member.id}> lul",
                     f"Tbh you are as gay as your mom <@{member.id}> XDDDD",
-                    f"Your nana a banana <@{member.id}>", ]))
-
+                    f"Your nana a banana <@{member.id}>"]))
 
 
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, discord.ext.commands.errors.CommandNotFound):
-        await ctx.send("Fuckin retard, There is no command like that do h%help")
+        await ctx.send("Fuckin retard, There is no command like that do s%help")
+    elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
+        await ctx.send("add the fucking argument you idiot")
     else:
         embed = discord.Embed(title="Error:",
                               description=f"{error}",
@@ -79,7 +80,7 @@ async def main_commands(ctx):
     embed.add_field(name="info", value="Tells you about harold", inline=False)
     embed.add_field(name="givetips", value="Gives tips for life", inline=False)
     embed.add_field(name="coinflip", value="flips the coin xD", inline=False)
-    embed.add_field(name="dick", value="how big is your dick?", inline= False)
+    embed.add_field(name="dick", value="how big is your dick?", inline=False)
     await ctx.send(embed=embed)
     await ctx.message.add_reaction('\U00002705')
 
@@ -118,22 +119,22 @@ async def die(ctx):
 
 @client.command(pass_context=True)
 async def dick(ctx):
-    await ctx.send(f'Dick size of {ctx.author} is 8{"=" * random.randint(0, 50)}D')
+    await ctx.send(f'Dick size of {ctx.author.mention} is 8{"=" * random.randint(0, 50)}D')
 
 
 @client.command(pass_context=True, name='8ball')
-async def _ball(ctx):
+async def _ball(ctx, *, argument):
     await ctx.send(random.choice(["Ye cunt",
-                                 "No idiot",
-                                 "Dude wtf is wrong with you",
-                                 "Lolno go die xd",
-                                 "Please try again",
-                                 "Maybe..",
-                                 "Over my dead body",
-                                 "YESSS",
-                                 "Yesn't",
-                                 "Of course mate",
-                                 "Yeah fam"]))
+                                  "No idiot",
+                                  "Dude wtf is wrong with you",
+                                  "Lolno go die xd",
+                                  "Please try again",
+                                  "Maybe..",
+                                  "Over my dead body",
+                                  "YESSS",
+                                  "Yesn't",
+                                  "Of course mate",
+                                  "Yeah fam"]))
 
 
 @client.command(pass_context=True)
@@ -170,25 +171,25 @@ async def givetips(ctx, member: discord.Member):
 @client.command(pass_context=True)
 async def image(ctx):
     embed = discord.Embed()
-    embed.set_image(url="https: // cdn.discordapp.com / attachments / 456449063169294350 / 459935883349458954 / OoF.gif")
+    embed.set_image(url="https://cdn.discordapp.com/attachments/456449063169294350/459935883349458954/OoF.gif")
     await ctx.send(embed=embed)
 
 
 @client.command(pass_context=True)
 async def rules(ctx):
     embed = discord.Embed(title="RULES", description="Follow discord guidelines too xD", color=0xf8470c)
-    embed.add_field(name='1', value = "Don't spam", inline=False)
-    embed.add_field(name='1', value = "Don't spam", inline=False)
-    embed.add_field(name='1', value = "Don't spam", inline=False)
-    embed.add_field(name='2', value = "Respect everyone", inline=False)
-    embed.add_field(name='3', value = "Don't be a homophobic faggot", inline=False)
-    embed.add_field(name='4', value = "No racism lol", inline = False)
-    embed.add_field(name='5', value = "You can argue with mods, until they mute or ban you lol", inline=False)
-    embed.add_field(name='6', value = "Don't be afraid to turn down dm advertisers but its rude tho", inline=False)
-    embed.add_field(name='7', value = "Banned memes and animes are not allowed", inline=False)
-    embed.add_field(name='8', value = "Don't post gore shit since they are against discord tos", inline=False)
-    embed.add_field(name='9', value = "Please don't use other languages", inline=True)
-    embed.set_footer(text = "Powered by Lucian's fat body™")
+    embed.add_field(name='1', value="Don't spam", inline=False)
+    embed.add_field(name='1', value="Don't spam", inline=False)
+    embed.add_field(name='1', value="Don't spam", inline=False)
+    embed.add_field(name='2', value="Respect everyone", inline=False)
+    embed.add_field(name='3', value="Don't be a homophobic faggot", inline=False)
+    embed.add_field(name='4', value="No racism lol", inline=False)
+    embed.add_field(name='5', value="You can argue with mods, until they mute or ban you lol", inline=False)
+    embed.add_field(name='6', value="Don't be afraid to turn down dm advertisers but its rude tho", inline=False)
+    embed.add_field(name='7', value="Banned memes and animes are not allowed", inline=False)
+    embed.add_field(name='8', value="Don't post gore shit since they are against discord tos", inline=False)
+    embed.add_field(name='9', value="Please don't use other languages", inline=True)
+    embed.set_footer(text="Powered by Lucian's fat body™")
     await ctx.send(embed=embed)
 
 
@@ -236,47 +237,53 @@ async def strike(ctx, member: discord.Member, *args):
 
 
 @client.command(pass_context=True)
+@commands.has_permissions(ban_members=True)
 async def roll(ctx, member: discord.Member, xp: int):
-    if ctx.author.guild_permissions.ban_members:
-        random_number = random.randint(1, 6)
-        if xp > 2500:
+    random_number = random.randint(1, 6)
+    if xp > 2500:
+        if random_number in [5, 6]:
             await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
-            time.sleep(5)
-            if random_number in [5, 6]:
-                await ctx.send(f"@everyone this is so sad {member.mention} won the doomed weeb role, Can we hit children?")
-                role = discord.utils.get(member.guild.roles, name="Doomed weebs")
-                await member.add_roles(role)
-            else:
-                await ctx.send(f"Congrats {member.mention} won the Thigh connoisseur role")
-                role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
-                await member.add_roles(role)
+            await asyncio.sleep(5)
+            await ctx.send(f"Omg this is so sad {member.mention} won the doomed weeb role, Can we hit children?")
+            role = discord.utils.get(member.guild.roles, name="Doomed weebs")
+            await member.add_roles(role)
         else:
-            if random_number is 4:
-                await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
-                time.sleep(5)
-                await ctx.send(f"Congrats {member.mention} won the Thigh connoisseur role")
-                role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
-                await member.add_roles(role)
-            else:
-                await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
-                role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
-                await member.add_roles(role)
+            await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
+            await asyncio.sleep(5)
+            await ctx.send(f"Congrats {member.mention} won the Thigh connoisseur role")
+            role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
+            await member.add_roles(role)
     else:
-        await ctx.send("You do not have permissions to roll their ass")
+        if random_number is 4:
+            await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
+            await asyncio.sleep(5)
+            await ctx.send(f"Congrats {member.mention} won the Thigh connoisseur role")
+            role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
+            await member.add_roles(role)
+        else:
+            await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
+            await asyncio.sleep(5)
+            await ctx.send(f"{ctx.author.mention} rolled {member.name} at {random_number} lol")
+            role = discord.utils.get(member.guild.roles, name="Thigh connoisseur")
+            await member.add_roles(role)
 
 
 @client.command(pass_context=True)
-async def mute(ctx, member: discord.Member):
+async def mute(ctx, member: discord.Member, time: int, reason=str):
     """Mute the client on the server."""
     if "Knights" in [role.name for role in ctx.author.roles]:
-        await ctx.message.delete()
-        role = discord.utils.get(ctx.guild.roles, name="Doomed weebs")
-        await member.add_roles(role)
-        await ctx.send(f"Ok the {member.mention} is Muted!")
-        overwrite = discord.PermissionOverwrite()
-        overwrite.ctx.send = False
-        for each in ctx.guild.channels:
-            await each.set_permissions(member, overwrite=overwrite)
+        if not member or not reason:
+            await ctx.send("You should get demoted fam.")
+        else:
+            await ctx.message.delete()
+            role = discord.utils.get(ctx.guild.roles, name="Doomed weebs")
+            time_min = time * 60
+            await member.add_roles(role)
+            await ctx.send(f"Ok the {member.mention} is Muted!")
+            overwrite = discord.PermissionOverwrite()
+            overwrite.ctx.send = False
+            for each in ctx.guild.channels:
+                await each.set_permissions(member, overwrite=overwrite)
 
 
 @client.command(pass_context=True)
@@ -328,4 +335,12 @@ async def source(ctx, *, text: str):
     await ctx.send(f"{nl}py\n{source_thing}{nl}")
 
 
-client.run('token')
+@client.command(pass_context=True)
+@commands.has_permissions(manage_guild=True)
+async def spam(ctx, amount: int, *, message):
+    """Whatever the fuck you say and  bot will say it aswell"""
+    for x in range(amount):
+        await ctx.send(message)
+
+    
+client.run('NDk4NDM4NzMyNjg5NTcxODQx.Dpt2tg.OAQH9IWdPq2y2HwrfcyNbACjz4k')
